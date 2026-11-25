@@ -13,10 +13,12 @@ This gets the app running on your phone, connected to your own Supabase database
 1. In Supabase, click **New project**. Name it `pantrio`, choose **Central EU (Frankfurt)**, and set a database password. Keep the password somewhere safe.
 2. When it's ready, open **SQL Editor › New query**.
 3. Open [`supabase/migrations/20261125120000_init.sql`](../supabase/migrations/20261125120000_init.sql), copy the whole file, paste it into the editor, and press **Run**. You should see "Success. No rows returned".
-4. Do the same with [`supabase/seed.sql`](../supabase/seed.sql). This adds the built-in list of about 180 ingredients.
-5. Optional, for easier family sign-up: **Authentication › Sign In / Providers › Email** → turn off **Confirm email**.
+4. Do the same with [`supabase/migrations/20261125140000_table_permissions.sql`](../supabase/migrations/20261125140000_table_permissions.sql). It lets signed-in people use the tables (newer Supabase projects don't allow it automatically).
+5. Do the same with [`supabase/migrations/20261125150000_recipes_and_plan.sql`](../supabase/migrations/20261125150000_recipes_and_plan.sql). It adds what recipes and the meal plan need.
+6. Do the same with [`supabase/seed.sql`](../supabase/seed.sql). This adds the built-in list of about 180 ingredients.
+7. Optional, for easier family sign-up: **Authentication › Sign In / Providers › Email** → turn off **Confirm email**.
 
-> **Why paste SQL?** The migration file creates the tables, the security rules that keep your household's data private, and the functions that create and join households. Keeping it in the repo means the database can always be rebuilt exactly.
+> **Why paste SQL?** The migration files create the tables, the security rules that keep your household's data private, and the functions the app calls. Run them in the order above, oldest first. Keeping them in the repo means the database can always be rebuilt exactly.
 
 ## 2. Connect the app to the database
 

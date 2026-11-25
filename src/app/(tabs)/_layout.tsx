@@ -2,8 +2,11 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { Tabs } from 'expo-router/tabs';
 import type { ComponentProps } from 'react';
 import type { ColorValue } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { colors, fonts } from '@/constants/theme';
+import { useHousehold } from '@/lib/useHousehold';
+import { useHouseholdSync } from '@/lib/sync';
 
 type IconName = ComponentProps<typeof Ionicons>['name'];
 
@@ -17,14 +20,27 @@ function tabIcon(active: IconName, inactive: IconName) {
 
 /** The five tabs at the bottom of the app. The file names here are the routes. */
 export default function TabsLayout() {
+  // While the tabs are open (they stay open under every other screen), keep
+  // recipes and the plan in sync with the rest of the family.
+  const { householdId } = useHousehold();
+  useHouseholdSync(householdId);
+  // Room for the icon and its label, plus the phone's gesture bar.
+  const insets = useSafeAreaInsets();
+
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: colors.accent,
         tabBarInactiveTintColor: colors.muted,
-        tabBarLabelStyle: { fontFamily: fonts.semibold, fontSize: 12 },
-        tabBarStyle: { backgroundColor: colors.surface, borderTopColor: colors.divider },
+        tabBarLabelStyle: { fontFamily: fonts.semibold, fontSize: 12, lineHeight: 16 },
+        tabBarStyle: {
+          backgroundColor: colors.surface,
+          borderTopColor: colors.divider,
+          height: 64 + insets.bottom,
+          paddingTop: 4,
+          paddingBottom: insets.bottom + 4,
+        },
         sceneStyle: { backgroundColor: colors.ground },
       }}>
       <Tabs.Screen name="index" options={{ title: 'Plan', tabBarIcon: tabIcon('calendar', 'calendar-outline') }} />

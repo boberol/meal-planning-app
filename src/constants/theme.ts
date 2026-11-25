@@ -48,6 +48,15 @@ export const colors = {
 /** Colours people can pick for their avatar. All pass 4.5:1 with white text. */
 export const avatarColors = ['#1E6F47', '#C2410C', '#2F5D8A', '#8A5A12', '#9D2F55', '#3F4A43'] as const;
 
+/** Soft background and icon colours for recipes that don't have a photo yet. */
+export const tileTints = [
+  { bg: '#F6DCD2', fg: '#A85E45' },
+  { bg: '#EFE6C8', fg: '#86733F' },
+  { bg: '#DCEBDF', fg: '#2F6B48' },
+  { bg: '#DCE6EF', fg: '#3F5F7D' },
+  { bg: '#E9E1D6', fg: '#7A6345' },
+] as const;
+
 export const radius = {
   sm: 12,
   md: 14,
